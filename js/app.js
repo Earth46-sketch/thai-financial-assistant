@@ -1,54 +1,4 @@
-function calculateFinance() {
-
-  const salary =
-    parseFloat(
-      document.getElementById("salaryInput").value
-    ) || 0;
-
-  const bonusMonths =
-    parseFloat(
-      document.getElementById("bonusInput").value
-    ) || 0;
-
-  const monthsWorked =
-    parseFloat(
-      document.getElementById("monthsInput").value
-    ) || 0;
-
-  const expense =
-    parseFloat(
-      document.getElementById("expenseInput").value
-    ) || 0;
-
-  // Annual Income
-  const annualSalary =
-    salary * monthsWorked;
-
-  const annualBonus =
-    salary * bonusMonths;
-
-  const grossIncome =
-    annualSalary + annualBonus;
-
-  // Deductions
-  const personalDeduction = 60000;
-
-  const socialSecurity =
-    Math.min(salary * 0.05, 750) *
-    monthsWorked;
-
-  const deductions =
-    personalDeduction +
-    socialSecurity;
-
-  const taxableIncome =
-    Math.max(
-      grossIncome - deductions,
-      0
-    );
-
-  // Tax Calculation
-  function calculateThaiTax(taxableIncome) {
+function calculateThaiTax(taxableIncome) {
 
   let tax = 0;
 
@@ -111,24 +61,72 @@ function calculateFinance() {
       (1000000 * 0.25) +
       (3000000 * 0.30) +
       ((taxableIncome - 5000000) * 0.35);
+
   }
 
   return tax;
 }
-const annualTax =
-  calculateThaiTax(
-    taxableIncome
-  );
 
-const monthlyTax =
-  annualTax / 12;
+function calculateFinance() {
+
+  const salary =
+    parseFloat(
+      document.getElementById("salaryInput").value
+    ) || 0;
+
+  const bonusMonths =
+    parseFloat(
+      document.getElementById("bonusInput").value
+    ) || 0;
+
+  const monthsWorked =
+    parseFloat(
+      document.getElementById("monthsInput").value
+    ) || 0;
+
+  const expense =
+    parseFloat(
+      document.getElementById("expenseInput").value
+    ) || 0;
+
+  const annualSalary =
+    salary * monthsWorked;
+
+  const annualBonus =
+    salary * bonusMonths;
+
+  const grossIncome =
+    annualSalary + annualBonus;
+
+  const personalDeduction = 60000;
+
+  const socialSecurity =
+    Math.min(salary * 0.05, 750) *
+    monthsWorked;
+
+  const deductions =
+    personalDeduction +
+    socialSecurity;
+
+  const taxableIncome =
+    Math.max(
+      grossIncome - deductions,
+      0
+    );
+
+  const annualTax =
+    calculateThaiTax(
+      taxableIncome
+    );
+
+  const monthlyTax =
+    annualTax / 12;
 
   const cashflow =
     salary -
     expense -
     monthlyTax;
 
-  // Update UI
   document.getElementById(
     "incomeDisplay"
   ).innerText =
@@ -136,9 +134,15 @@ const monthlyTax =
     " ฿";
 
   document.getElementById(
-    "expenseDisplay"
+    "deductionDisplay"
   ).innerText =
-    expense.toLocaleString() +
+    deductions.toLocaleString() +
+    " ฿";
+
+  document.getElementById(
+    "taxableDisplay"
+  ).innerText =
+    taxableIncome.toLocaleString() +
     " ฿";
 
   document.getElementById(
@@ -155,7 +159,6 @@ const monthlyTax =
       .toLocaleString() +
     " ฿";
 
-  // Save Data
   localStorage.setItem(
     "salary",
     salary
@@ -177,7 +180,6 @@ const monthlyTax =
   );
 }
 
-// Load Saved Data
 window.onload = function () {
 
   document.getElementById(
