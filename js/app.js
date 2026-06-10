@@ -142,6 +142,21 @@ function calculateFinance() {
     calculateThaiTax(
       taxableIncome
     );
+    const suggestedSSF = 20000;
+
+const newTaxableIncome =
+Math.max(
+taxableIncome - suggestedSSF,
+0
+);
+
+const newTax =
+calculateThaiTax(
+newTaxableIncome
+);
+
+const taxSaving =
+annualTax - newTax;
 
   const monthlyTax =
     annualTax / 12;
@@ -182,6 +197,12 @@ function calculateFinance() {
     Math.round(cashflow)
       .toLocaleString() +
     " ฿";
+    document.getElementById(
+"savingDisplay"
+).innerText =
+Math.round(taxSaving)
+.toLocaleString() +
+" ฿";
 
   localStorage.setItem(
     "salary",

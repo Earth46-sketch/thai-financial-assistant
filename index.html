@@ -102,13 +102,39 @@
         placeholder="Provident Fund (฿)"
       >
 
-      <button onclick="calculateFinance()">
-        Calculate Tax
-      </button>
+     <input
+  type="number"
+  id="providentInput"
+  placeholder="Provident Fund (฿)"
+>
 
-    </div>
+<button onclick="calculateFinance()">
+  Calculate Tax
+</button>
+
+</div>
+
+<div class="card">
+
+  <h2>Tax Saving Recommendation</h2>
+
+  <div class="summary-row">
+    <span>Potential Tax Saving</span>
+    <span id="savingDisplay">0 ฿</span>
+  </div>
+
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+
+</html>
 
   </div>
+  <div class="card">
+
+
 
   <script src="js/app.js"></script>
 
