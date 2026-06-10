@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thai Financial Assistant</title>
 
   <link rel="stylesheet" href="css/style.css">
@@ -20,30 +21,30 @@
 
       <h2>Financial Summary</h2>
 
-<div class="summary-row">
-  <span>Annual Income</span>
-  <span id="incomeDisplay">0 ฿</span>
-</div>
+      <div class="summary-row">
+        <span>Annual Income</span>
+        <span id="incomeDisplay">0 ฿</span>
+      </div>
 
-<div class="summary-row">
-  <span>Total Deduction</span>
-  <span id="deductionDisplay">0 ฿</span>
-</div>
+      <div class="summary-row">
+        <span>Total Deduction</span>
+        <span id="deductionDisplay">0 ฿</span>
+      </div>
 
-<div class="summary-row">
-  <span>Taxable Income</span>
-  <span id="taxableDisplay">0 ฿</span>
-</div>
+      <div class="summary-row">
+        <span>Taxable Income</span>
+        <span id="taxableDisplay">0 ฿</span>
+      </div>
 
-<div class="summary-row">
-  <span>Annual Tax</span>
-  <span id="taxDisplay">0 ฿</span>
-</div>
+      <div class="summary-row">
+        <span>Annual Tax</span>
+        <span id="taxDisplay">0 ฿</span>
+      </div>
 
-<div class="summary-row total">
-  <span>Monthly Cashflow</span>
-  <span id="cashflowDisplay">0 ฿</span>
-</div>
+      <div class="summary-row total">
+        <span>Monthly Cashflow</span>
+        <span id="cashflowDisplay">0 ฿</span>
+      </div>
 
     </div>
 
@@ -51,33 +52,59 @@
 
       <h2>Thai Tax Planner</h2>
 
-<input
- type="number"
- id="salaryInput"
- placeholder="Monthly Salary (฿)"
->
+      <input
+        type="number"
+        id="salaryInput"
+        placeholder="Monthly Salary (฿)"
+      >
 
-<input
- type="number"
- id="bonusInput"
- placeholder="Bonus (Months)"
->
+      <input
+        type="number"
+        id="bonusInput"
+        placeholder="Bonus (Months)"
+      >
 
-<input
- type="number"
- id="monthsInput"
- placeholder="Months Worked"
->
+      <input
+        type="number"
+        id="monthsInput"
+        placeholder="Months Worked"
+      >
 
-<input
- type="number"
- id="expenseInput"
- placeholder="Monthly Expense (฿)"
->
+      <input
+        type="number"
+        id="expenseInput"
+        placeholder="Monthly Expense (฿)"
+      >
 
-<button onclick="calculateFinance()">
- Calculate Tax
-</button>
+      <hr>
+
+      <input
+        type="number"
+        id="lifeInsuranceInput"
+        placeholder="Life Insurance Deduction (฿)"
+      >
+
+      <input
+        type="number"
+        id="ssfInput"
+        placeholder="SSF Investment (฿)"
+      >
+
+      <input
+        type="number"
+        id="rmfInput"
+        placeholder="RMF Investment (฿)"
+      >
+
+      <input
+        type="number"
+        id="providentInput"
+        placeholder="Provident Fund (฿)"
+      >
+
+      <button onclick="calculateFinance()">
+        Calculate Tax
+      </button>
 
     </div>
 
@@ -86,4 +113,5 @@
   <script src="js/app.js"></script>
 
 </body>
+
 </html>

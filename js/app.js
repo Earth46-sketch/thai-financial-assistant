@@ -89,6 +89,26 @@ function calculateFinance() {
       document.getElementById("expenseInput").value
     ) || 0;
 
+  const lifeInsurance =
+    parseFloat(
+      document.getElementById("lifeInsuranceInput").value
+    ) || 0;
+
+  const ssf =
+    parseFloat(
+      document.getElementById("ssfInput").value
+    ) || 0;
+
+  const rmf =
+    parseFloat(
+      document.getElementById("rmfInput").value
+    ) || 0;
+
+  const provident =
+    parseFloat(
+      document.getElementById("providentInput").value
+    ) || 0;
+
   const annualSalary =
     salary * monthsWorked;
 
@@ -106,7 +126,11 @@ function calculateFinance() {
 
   const deductions =
     personalDeduction +
-    socialSecurity;
+    socialSecurity +
+    lifeInsurance +
+    ssf +
+    rmf +
+    provident;
 
   const taxableIncome =
     Math.max(
@@ -178,6 +202,26 @@ function calculateFinance() {
     "expense",
     expense
   );
+
+  localStorage.setItem(
+    "lifeInsurance",
+    lifeInsurance
+  );
+
+  localStorage.setItem(
+    "ssf",
+    ssf
+  );
+
+  localStorage.setItem(
+    "rmf",
+    rmf
+  );
+
+  localStorage.setItem(
+    "provident",
+    provident
+  );
 }
 
 window.onload = function () {
@@ -201,6 +245,26 @@ window.onload = function () {
     "expenseInput"
   ).value =
     localStorage.getItem("expense") || "";
+
+  document.getElementById(
+    "lifeInsuranceInput"
+  ).value =
+    localStorage.getItem("lifeInsurance") || "";
+
+  document.getElementById(
+    "ssfInput"
+  ).value =
+    localStorage.getItem("ssf") || "";
+
+  document.getElementById(
+    "rmfInput"
+  ).value =
+    localStorage.getItem("rmf") || "";
+
+  document.getElementById(
+    "providentInput"
+  ).value =
+    localStorage.getItem("provident") || "";
 
   calculateFinance();
 };
