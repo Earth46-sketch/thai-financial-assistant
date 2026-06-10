@@ -1,8 +1,18 @@
 function calculateFinance() {
 
-  const income =
+  const salary =
     parseFloat(
-      document.getElementById("incomeInput").value
+      document.getElementById("salaryInput").value
+    ) || 0;
+
+  const bonusMonths =
+    parseFloat(
+      document.getElementById("bonusInput").value
+    ) || 0;
+
+  const monthsWorked =
+    parseFloat(
+      document.getElementById("monthsInput").value
     ) || 0;
 
   const expense =
@@ -10,80 +20,185 @@ function calculateFinance() {
       document.getElementById("expenseInput").value
     ) || 0;
 
+  // Annual Income
+  const annualSalary =
+    salary * monthsWorked;
+
+  const annualBonus =
+    salary * bonusMonths;
+
+  const grossIncome =
+    annualSalary + annualBonus;
+
+  // Deductions
+  const personalDeduction = 60000;
+
+  const socialSecurity =
+    Math.min(salary * 0.05, 750) *
+    monthsWorked;
+
+  const deductions =
+    personalDeduction +
+    socialSecurity;
+
+  const taxableIncome =
+    Math.max(
+      grossIncome - deductions,
+      0
+    );
+
+  // Tax Calculation
+  function calculateThaiTax(taxableIncome) {
+
+  let tax = 0;
+
+  if (taxableIncome <= 150000) {
+
+    tax = 0;
+
+  } else if (taxableIncome <= 300000) {
+
+    tax =
+      (taxableIncome - 150000) * 0.05;
+
+  } else if (taxableIncome <= 500000) {
+
+    tax =
+      (150000 * 0.05) +
+      ((taxableIncome - 300000) * 0.10);
+
+  } else if (taxableIncome <= 750000) {
+
+    tax =
+      (150000 * 0.05) +
+      (200000 * 0.10) +
+      ((taxableIncome - 500000) * 0.15);
+
+  } else if (taxableIncome <= 1000000) {
+
+    tax =
+      (150000 * 0.05) +
+      (200000 * 0.10) +
+      (250000 * 0.15) +
+      ((taxableIncome - 750000) * 0.20);
+
+  } else if (taxableIncome <= 2000000) {
+
+    tax =
+      (150000 * 0.05) +
+      (200000 * 0.10) +
+      (250000 * 0.15) +
+      (250000 * 0.20) +
+      ((taxableIncome - 1000000) * 0.25);
+
+  } else if (taxableIncome <= 5000000) {
+
+    tax =
+      (150000 * 0.05) +
+      (200000 * 0.10) +
+      (250000 * 0.15) +
+      (250000 * 0.20) +
+      (1000000 * 0.25) +
+      ((taxableIncome - 2000000) * 0.30);
+
+  } else {
+
+    tax =
+      (150000 * 0.05) +
+      (200000 * 0.10) +
+      (250000 * 0.15) +
+      (250000 * 0.20) +
+      (1000000 * 0.25) +
+      (3000000 * 0.30) +
+      ((taxableIncome - 5000000) * 0.35);
+  }
+
+  return tax;
+}
+const annualTax =
+  calculateThaiTax(
+    taxableIncome
+  );
+
+const monthlyTax =
+  annualTax / 12;
+
+  const cashflow =
+    salary -
+    expense -
+    monthlyTax;
+
+  // Update UI
+  document.getElementById(
+    "incomeDisplay"
+  ).innerText =
+    grossIncome.toLocaleString() +
+    " ฿";
+
+  document.getElementById(
+    "expenseDisplay"
+  ).innerText =
+    expense.toLocaleString() +
+    " ฿";
+
+  document.getElementById(
+    "taxDisplay"
+  ).innerText =
+    Math.round(annualTax)
+      .toLocaleString() +
+    " ฿";
+
+  document.getElementById(
+    "cashflowDisplay"
+  ).innerText =
+    Math.round(cashflow)
+      .toLocaleString() +
+    " ฿";
+
   // Save Data
   localStorage.setItem(
-    "income",
-    income
+    "salary",
+    salary
+  );
+
+  localStorage.setItem(
+    "bonusMonths",
+    bonusMonths
+  );
+
+  localStorage.setItem(
+    "monthsWorked",
+    monthsWorked
   );
 
   localStorage.setItem(
     "expense",
     expense
   );
-
-  const annualIncome = income * 12;
-
-  let estimatedTax = 0;
-
-  if (annualIncome > 150000) {
-
-    estimatedTax =
-      (annualIncome - 150000) * 0.05;
-  }
-
-  const monthlyTax =
-    estimatedTax / 12;
-
-  const cashflow =
-    income - expense - monthlyTax;
-
-  document.getElementById(
-    "incomeDisplay"
-  ).innerText =
-    income.toLocaleString() + " ฿";
-
-  document.getElementById(
-    "expenseDisplay"
-  ).innerText =
-    expense.toLocaleString() + " ฿";
-
-  document.getElementById(
-    "taxDisplay"
-  ).innerText =
-    Math.round(monthlyTax).toLocaleString() + " ฿";
-
-  document.getElementById(
-    "cashflowDisplay"
-  ).innerText =
-    Math.round(cashflow).toLocaleString() + " ฿";
 }
 
 // Load Saved Data
 window.onload = function () {
 
-  const savedIncome =
-    localStorage.getItem("income");
+  document.getElementById(
+    "salaryInput"
+  ).value =
+    localStorage.getItem("salary") || "";
 
-  const savedExpense =
-    localStorage.getItem("expense");
+  document.getElementById(
+    "bonusInput"
+  ).value =
+    localStorage.getItem("bonusMonths") || "";
 
-  if (savedIncome) {
+  document.getElementById(
+    "monthsInput"
+  ).value =
+    localStorage.getItem("monthsWorked") || "";
 
-    document.getElementById(
-      "incomeInput"
-    ).value = savedIncome;
-  }
-
-  if (savedExpense) {
-
-    document.getElementById(
-      "expenseInput"
-    ).value = savedExpense;
-  }
+  document.getElementById(
+    "expenseInput"
+  ).value =
+    localStorage.getItem("expense") || "";
 
   calculateFinance();
 };
-
-console.log(
-  "Financial System Started"
-);
